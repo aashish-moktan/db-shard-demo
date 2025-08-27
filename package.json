@@ -1,0 +1,29 @@
+{
+  "name": "db-shard-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aashish-moktan/db-shard-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aashish-moktan/db-shard-demo/issues"
+  },
+  "homepage": "https://github.com/aashish-moktan/db-shard-demo#readme",
+  "description": "",
+  "dependencies": {
+    "consistent-hash": "^1.2.2",
+    "express": "^5.1.0",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
