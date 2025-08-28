@@ -1,10 +1,10 @@
 const { Client } = require("pg");
 const app = require("express")();
-const ConsistentHash = require("consistent-hash");
+const HashRing = require("hashring");
 const crypto = require("crypto");
 
 // Initialize consistent hashing ring and add shards (database instances)
-const hr = new ConsistentHash();
+const hr = new HashRing();
 hr.add("5433");
 hr.add("5434");
 hr.add("5435");
@@ -61,6 +61,28 @@ app.post("/data", async (req, res) => {
   );
 
   return res.json({ urlId, url, server: shardPort });
+});
+
+// read data
+app.get("/:urlId", async (req, res) => {
+  const urlId = req.params.urlId;
+
+  // Determine the shard using consistent hashing
+  const shardPort = hr.get(urlId);
+  const result = await clients[shardPort].query(
+    "SELECT * from urls WHERE short_code = $1",
+    [urlId]
+  );
+
+  if (!result && result.rowLength === 0) {
+    return res.status(404).send("URL not found");
+  }
+
+  return res.json({
+    urlId,
+    url: result.rows[0].original_url,
+    server: shardPort,
+  });
 });
 
 app.listen(8081, () => {

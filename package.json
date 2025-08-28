@@ -19,8 +19,8 @@
   "homepage": "https://github.com/aashish-moktan/db-shard-demo#readme",
   "description": "",
   "dependencies": {
-    "consistent-hash": "^1.2.2",
     "express": "^5.1.0",
+    "hashring": "^3.2.0",
     "pg": "^8.16.3"
   },
   "devDependencies": {
