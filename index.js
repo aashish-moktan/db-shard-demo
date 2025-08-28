@@ -43,7 +43,7 @@ async function connectClients() {
 connectClients();
 
 // write data
-app.post("/data", async (req, res) => {
+app.post("/shorten", async (req, res) => {
   const url = req.query.url;
   if (!url) {
     return res.status(400).send("Missing url parameter");
